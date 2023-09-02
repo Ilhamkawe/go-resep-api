@@ -16,7 +16,7 @@ import (
 
 func main() {
 
-	dsn := "host=localhost user=postgres password=p@ssw0rdnd5 dbname=go-resep port=5432 sslmode=disable TimeZone=Asia/Jakarta"
+	dsn := "host=localhost user=postgres password=yourpassword dbname=go-resep port=5432 sslmode=disable TimeZone=Asia/Jakarta"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
