@@ -21,7 +21,7 @@
 ## About The Project
 
 <p align="center">
-  <img src="https://i.ibb.co/F4jjTsg/microservice-diagram.jpg" alt="A4-1" border="0" />
+  <img src="https://i.ibb.co/r4ykqKP/Resep-ERD.png" alt="A4-1" border="0" />
 </p>
 
 In this project I created an API to record master data (ingredients and categories) along with recipe data
