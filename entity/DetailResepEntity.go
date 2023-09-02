@@ -8,5 +8,5 @@ type DetailResep struct {
 	Resep   Resep `gorm:"foreignKey:ResepId;references:ID"`
 	BahanId uint  `gorm:"type:integer;not null"`
 	Bahan   Bahan `gorm:"foreignKey:BahanId;references:ID"`
-	Jumlah  int   `gorm:"type:integer;column:'jumlah'"`
+	Jumlah  int   `gorm:"type:integer;not null"`
 }

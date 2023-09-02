@@ -5,6 +5,9 @@ import (
 	"go-resep-api/entity"
 	"go-resep-api/handler"
 	"go-resep-api/src/bahan"
+	"go-resep-api/src/detailresep"
+	"go-resep-api/src/kategori"
+	"go-resep-api/src/resep"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
@@ -36,11 +39,21 @@ func main() {
 	}
 
 	//Bahan Dependencies
-	//=================================================
+	//==================================================
 	bahanRepository := bahan.NewRepository(db)
 	bahanService := bahan.NewService(bahanRepository)
 	bahanHandler := handler.NewBahanHandler(bahanService)
 	//==================================================
+	//Kategori Dependencies
+	//==================================================
+	kategoriRepository := kategori.NewRepository(db)
+	kategoriService := kategori.NewService(kategoriRepository)
+	kategoriHandler := handler.NewKategoriHandler(kategoriService)
+	//==================================================
+	resepRepository := resep.NewRepository(db)
+	detailRepository := detailresep.NewRepository(db)
+	resepService := resep.NewService(resepRepository, detailRepository, kategoriRepository)
+	resepHandler := handler.NewResepHandler(resepService)
 
 	router := gin.Default()
 
@@ -52,5 +65,17 @@ func main() {
 	api.GET("/bahan/:id/restore", bahanHandler.Restore)
 	api.DELETE("/bahan/:id/delete", bahanHandler.PermDestroy)
 	api.PUT("/bahan/:id/update", bahanHandler.Update)
+
+	api.GET("/kategori", kategoriHandler.Index)
+	api.POST("/kategori/store", kategoriHandler.Store)
+	api.DELETE("/kategori/:id/destroy", kategoriHandler.Destroy)
+	api.GET("/kategori/:id/restore", kategoriHandler.Restore)
+	api.DELETE("/kategori/:id/delete", kategoriHandler.PermDestroy)
+	api.PUT("/kategori/:id/update", kategoriHandler.Update)
+
+	api.POST("/resep/store", resepHandler.Store)
+	api.GET("/resep/:id/detail", resepHandler.FindByID)
+	api.GET("/resep", resepHandler.Index)
+
 	router.Run()
 }
