@@ -17,7 +17,7 @@ func NewBahanHandler(bahanService bahan.Service) *bahanHandler {
 }
 
 func (h *bahanHandler) Index(c *gin.Context) {
-	bahan, err := h.bahanService.Index()
+	fbahan, err := h.bahanService.Index()
 
 	if err != nil {
 		response := helper.APIResponse("Terjadi Kesalahan Saat Mengambil Data", http.StatusInternalServerError, "error", err.Error())
@@ -25,7 +25,7 @@ func (h *bahanHandler) Index(c *gin.Context) {
 		return
 	}
 
-	response := helper.APIResponse("Berhasil Mengambil Data", http.StatusOK, "OK", bahan)
+	response := helper.APIResponse("Berhasil Mengambil Data", http.StatusOK, "OK", bahan.FormatBahans(fbahan))
 	c.JSON(http.StatusOK, response)
 	return
 }

@@ -59,7 +59,7 @@ func (r *repository) Delete(id uint) (bool, error) {
 func (r *repository) Index() ([]entity.Resep, error) {
 	var resep []entity.Resep
 
-	err := r.db.Preload("Kategori").Order("id asc").Find(&resep).Error
+	err := r.db.Preload("DetailResep.Bahan").Preload("Kategori").Order("id asc").Find(&resep).Error
 
 	if err != nil {
 		return resep, err

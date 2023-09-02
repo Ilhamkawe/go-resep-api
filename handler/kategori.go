@@ -17,7 +17,7 @@ func NewKategoriHandler(kategoriService kategori.Service) *kategoriHandler {
 }
 
 func (h *kategoriHandler) Index(c *gin.Context) {
-	kategori, err := h.kategoriService.Index()
+	fkategori, err := h.kategoriService.Index()
 
 	if err != nil {
 		response := helper.APIResponse("Terjadi Kesalahan Saat Mengambil Data", http.StatusInternalServerError, "error", err.Error())
@@ -25,7 +25,7 @@ func (h *kategoriHandler) Index(c *gin.Context) {
 		return
 	}
 
-	response := helper.APIResponse("Berhasil Mengambil Data", http.StatusOK, "OK", kategori)
+	response := helper.APIResponse("Berhasil Mengambil Data", http.StatusOK, "OK", kategori.FormatsKategori(fkategori))
 	c.JSON(http.StatusOK, response)
 	return
 }

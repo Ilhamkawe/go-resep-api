@@ -53,7 +53,8 @@ func main() {
 	resepRepository := resep.NewRepository(db)
 	detailRepository := detailresep.NewRepository(db)
 	resepService := resep.NewService(resepRepository, detailRepository, kategoriRepository)
-	resepHandler := handler.NewResepHandler(resepService)
+	detailService := detailresep.NewService(detailRepository)
+	resepHandler := handler.NewResepHandler(resepService, detailService)
 
 	router := gin.Default()
 
@@ -74,8 +75,11 @@ func main() {
 	api.PUT("/kategori/:id/update", kategoriHandler.Update)
 
 	api.POST("/resep/store", resepHandler.Store)
+	api.POST("/resep/store/detail", resepHandler.StoreDetail)
 	api.GET("/resep/:id/detail", resepHandler.FindByID)
 	api.GET("/resep", resepHandler.Index)
+	api.DELETE("/resep/:id/detail", resepHandler.DeleteDetail)
+	api.DELETE("/resep/:id/delete", resepHandler.Delete)
 
 	router.Run()
 }
