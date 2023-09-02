@@ -67,7 +67,8 @@ dsn := "host=localhost user=postgres password=yourpassword dbname=go-resep port=
 	})
 ```
 note:
-you only need to create an empty database, because I have provided DB migration
+you only need to create an empty database, because I have provided DB migration, or 
+you can download here https://github.com/Ilhamkawe/go-resep-api/blob/main/go-resep.sql
 
 ## Usage
 
